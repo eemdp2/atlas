@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Livro II — O Produto. Definição oficial do ecossistema Conecta Educação Inclusiva.">
+  <meta name="theme-color" content="#0D2B45">
+  <title>Livro II — O Produto | Projeto Atlas</title>
+
+  <style>
+    :root{
+      --azul:#0D2B45;
+      --verde:#009688;
+      --laranja:#FF9F1C;
+      --roxo:#7566D9;
+      --rosa:#EF5C78;
+      --azul-produto:#3F6FE5;
+      --verde-produto:#4F9B3F;
+      --fundo:#F5F8FA;
+      --superficie:#FFFFFF;
+      --superficie-2:#EEF4F7;
+      --texto:#203247;
+      --texto-suave:#68778A;
+      --borda:#DDE6ED;
+      --sombra:0 18px 55px rgba(13,43,69,.09);
+      --raio:24px;
+      --largura:1200px;
+    }
+
+    body.escuro{
+      --fundo:#091521;
+      --superficie:#102235;
+      --superficie-2:#163149;
+      --texto:#F4F8FB;
+      --texto-suave:#AFC1D0;
+      --borda:#294158;
+      --sombra:0 18px 55px rgba(0,0,0,.28);
+    }
+
+    *{box-sizing:border-box;scroll-behavior:smooth}
+    html{scroll-padding-top:96px}
+    body{
+      margin:0;
+      font-family:"Poppins","Segoe UI",Arial,sans-serif;
+      background:
+        radial-gradient(circle at 0 0,rgba(0,150,136,.11),transparent 26rem),
+        radial-gradient(circle at 100% 0,rgba(255,159,28,.12),transparent 24rem),
+        var(--fundo);
+      color:var(--texto);
+      line-height:1.68;
+      transition:.25s ease;
+    }
+
+    a{color:inherit}
+    img{display:block;max-width:100%}
+    .container{width:min(var(--largura),calc(100% - 32px));margin:auto}
+
+    .topo{
+      position:sticky;top:0;z-index:1000;
+      border-bottom:1px solid var(--borda);
+      background:color-mix(in srgb,var(--superficie) 94%,transparent);
+      backdrop-filter:blur(16px);
+    }
+
+    .nav{
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    .marca{display:flex;align-items:center;text-decoration:none}
+    .marca img{width:235px;height:auto}
+    .acoes{display:flex;align-items:center;gap:9px}
+
+    .botao{
+      border:0;border-radius:13px;padding:11px 15px;
+      font:inherit;font-size:.9rem;font-weight:800;cursor:pointer;
+      text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    }
+
+    .botao-principal{background:var(--azul);color:#fff}
+    .botao-suave{background:var(--superficie-2);color:var(--texto);border:1px solid var(--borda)}
+
+    .hero{padding:84px 0 68px;border-bottom:1px solid var(--borda)}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+
+    .etiqueta{
+      display:inline-flex;align-items:center;gap:9px;margin-bottom:18px;
+      color:var(--verde);font-size:.8rem;font-weight:900;
+      text-transform:uppercase;letter-spacing:.12em;
+    }
+
+    .etiqueta::before{
+      content:"";width:34px;height:4px;border-radius:999px;background:var(--laranja)
+    }
+
+    h1{
+      margin:0;color:var(--texto);
+      font-size:clamp(3rem,7vw,5.8rem);
+      line-height:.96;letter-spacing:-.06em;
+    }
+
+    h1 span{color:var(--verde)}
+    .hero p{max-width:720px;margin:24px 0 0;color:var(--texto-suave);font-size:1.12rem}
+
+    .metas{display:flex;flex-wrap:wrap;gap:10px;margin-top:25px}
+    .meta{
+      padding:8px 11px;border:1px solid var(--borda);border-radius:999px;
+      background:var(--superficie);color:var(--texto);font-size:.85rem;font-weight:700
+    }
+
+    .hero-logo{
+      min-height:410px;display:grid;place-items:center;padding:38px;
+      border:1px solid var(--borda);border-radius:30px;
+      background:linear-gradient(145deg,var(--superficie),var(--superficie-2));
+      box-shadow:var(--sombra)
+    }
+
+    .hero-logo img{width:min(100%,700px);height:auto}
+
+    .layout{
+      display:grid;grid-template-columns:300px minmax(0,1fr);
+      gap:34px;padding:44px 0 90px
+    }
+
+    .sumario{
+      position:sticky;top:98px;align-self:start;
+      max-height:calc(100vh - 120px);overflow:auto;
+      padding:20px;border:1px solid var(--borda);border-radius:20px;
+      background:var(--superficie);box-shadow:var(--sombra)
+    }
+
+    .sumario h2{
+      margin:0 0 12px;font-size:.83rem;text-transform:uppercase;
+      letter-spacing:.09em;color:var(--texto)
+    }
+
+    .sumario a{
+      display:block;padding:8px 10px;margin:2px 0;border-radius:10px;
+      text-decoration:none;color:var(--texto-suave);font-size:.89rem;line-height:1.35
+    }
+
+    .sumario a:hover,.sumario a.ativo{
+      background:var(--superficie-2);color:var(--verde);font-weight:800
+    }
+
+    main{min-width:0}
+
+    .capitulo,.abertura,.decisao{
+      margin-bottom:26px;padding:clamp(24px,4vw,42px);
+      border:1px solid var(--borda);border-radius:var(--raio);
+      background:var(--superficie);box-shadow:var(--sombra);
+      scroll-margin-top:98px
+    }
+
+    .abertura{border-top:7px solid var(--laranja)}
+
+    .rotulo{
+      display:inline-flex;align-items:center;min-height:33px;padding:0 13px;
+      margin-bottom:14px;border-radius:999px;background:var(--verde);
+      color:#fff;font-size:.8rem;font-weight:900;letter-spacing:.05em
+    }
+
+    h2{
+      margin:0 0 18px;color:var(--texto);
+      font-size:clamp(1.8rem,4vw,2.7rem);
+      line-height:1.08;letter-spacing:-.04em
+    }
+
+    h3{margin:28px 0 10px;color:var(--texto);font-size:1.16rem}
+    p{margin:0 0 16px}
+    .lead{color:var(--texto-suave);font-size:1.08rem}
+
+    .citacao{
+      margin:25px 0;padding:23px 26px;border-left:6px solid var(--laranja);
+      border-radius:0 17px 17px 0;
+      background:linear-gradient(90deg,#FFF6E7,var(--superficie));
+      color:var(--texto);font-size:1.08rem;font-weight:800
+    }
+
+    ul{padding-left:22px;margin:12px 0 18px}
+    li{margin:8px 0}
+
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:20px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+
+    .card{
+      padding:19px;border:1px solid var(--borda);border-radius:18px;
+      background:linear-gradient(145deg,var(--superficie),var(--superficie-2))
+    }
+
+    .card strong{display:block;margin-bottom:6px;color:var(--verde);font-size:1.08rem}
+    .card p{margin:0;color:var(--texto-suave)}
+
+    .persona{
+      padding:20px;border:1px solid var(--borda);border-radius:18px;background:var(--superficie)
+    }
+
+    .persona h3{margin:0 0 8px}
+    .persona p{color:var(--texto-suave);margin:0 0 10px}
+    .persona ul{margin-bottom:0}
+
+    .fluxo{
+      display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:12px;margin-top:22px
+    }
+
+    .passo{
+      position:relative;padding:18px;border:1px solid var(--borda);
+      border-radius:18px;background:var(--superficie-2);text-align:center;font-weight:800
+    }
+
+    .passo span{
+      display:grid;place-items:center;width:34px;height:34px;margin:0 auto 10px;
+      border-radius:50%;background:var(--verde);color:#fff
+    }
+
+    .modulos{
+      display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:20px
+    }
+
+    .modulo{
+      padding:18px;border:1px solid var(--borda);border-radius:18px;background:var(--superficie)
+    }
+
+    .modulo-topo{display:flex;align-items:center;gap:11px;margin-bottom:9px}
+    .modulo-icone{
+      width:42px;height:42px;display:grid;place-items:center;
+      border-radius:13px;color:#fff;font-weight:900
+    }
+
+    .modulo strong{color:var(--texto);line-height:1.15}
+    .modulo p{margin:0;color:var(--texto-suave);font-size:.9rem}
+
+    .pei{background:var(--verde)}
+    .aee{background:var(--roxo)}
+    .familia{background:var(--rosa)}
+    .estrategias{background:var(--laranja)}
+    .indicadores{background:var(--azul-produto)}
+    .formacao{background:var(--verde-produto)}
+
+    .mvp{
+      background:linear-gradient(145deg,var(--azul),#174B69);
+      color:#fff;border:0
+    }
+
+    .mvp h2{color:#fff}
+    .mvp .rotulo{background:var(--laranja);color:var(--azul)}
+    .mvp .card{
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.16)
+    }
+
+    .mvp .card strong,.mvp .card p{color:#fff}
+
+    .tabela{
+      width:100%;border-collapse:collapse;margin-top:18px;overflow:hidden;
+      border-radius:16px;border:1px solid var(--borda)
+    }
+
+    .tabela th,.tabela td{
+      padding:14px 15px;border-bottom:1px solid var(--borda);text-align:left
+    }
+
+    .tabela th{background:var(--superficie-2);color:var(--texto)}
+    .tabela tr:last-child td{border-bottom:0}
+
+    .decisao{
+      text-align:center;border-top:7px solid var(--laranja);
+      background:linear-gradient(145deg,#FFF6E7,var(--superficie))
+    }
+
+    .decisao p{
+      max-width:850px;margin:0 auto;color:var(--texto);
+      font-size:1.18rem;font-weight:800
+    }
+
+    .status{
+      margin-top:26px;padding:17px;border:1px solid #CFE2F4;
+      border-radius:16px;background:var(--superficie-2);text-align:left
+    }
+
+    footer{
+      padding:30px 16px;border-top:1px solid var(--borda);
+      background:var(--superficie);color:var(--texto-suave);
+      text-align:center;font-size:.9rem
+    }
+
+    .topo-voltar{
+      position:fixed;right:20px;bottom:20px;width:46px;height:46px;
+      display:none;place-items:center;border:0;border-radius:14px;
+      background:var(--azul);color:#fff;font-size:1.2rem;
+      cursor:pointer;box-shadow:var(--sombra);z-index:900
+    }
+
+    .topo-voltar.visivel{display:grid}
+
+    @media(max-width:980px){
+      .hero-grid,.layout{grid-template-columns:1fr}
+      .sumario{position:relative;top:auto;max-height:none}
+      .hero-logo{max-width:720px}
+      .fluxo{grid-template-columns:repeat(2,minmax(0,1fr))}
+    }
+
+    @media(max-width:720px){
+      .acoes .botao-principal{display:none}
+      .marca img{width:190px}
+      .hero{padding-top:54px}
+      .hero-logo{min-height:300px}
+      .grid-2,.grid-3,.modulos,.fluxo{grid-template-columns:1fr}
+      .tabela{font-size:.88rem}
+    }
+
+    @media print{
+      body{background:#fff;font-family:Arial,sans-serif}
+      .topo,.sumario,.topo-voltar,footer{display:none!important}
+      .hero{min-height:95vh;display:flex;align-items:center;page-break-after:always}
+      .hero-grid{grid-template-columns:1fr}
+      .layout{display:block;width:100%;padding:0}
+      .abertura,.capitulo,.decisao{
+        box-shadow:none;border:0;border-radius:0;padding:0;margin:0 0 30px;page-break-inside:avoid
+      }
+      .capitulo{page-break-before:always}
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topo">
+    <div class="container nav">
+      <a href="index.html" class="marca" aria-label="Voltar para o Projeto Atlas">
+        <img src="design/logos/atlas.svg" alt="Conecta Educação Inclusiva">
+      </a>
+
+      <div class="acoes">
+        <button class="botao botao-suave" id="tema">Modo claro/escuro</button>
+        <button class="botao botao-suave" onclick="window.print()">Imprimir / PDF</button>
+        <a class="botao botao-principal" href="index.html">Página inicial</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="etiqueta">Projeto Atlas</div>
+        <h1>Livro II<br><span>O Produto</span></h1>
+
+        <p>
+          Definição oficial do ecossistema Conecta Educação Inclusiva. Este volume estabelece
+          o problema central, a proposta de valor, os públicos, os módulos, o MVP, as jornadas
+          e os critérios que orientam a construção do produto.
+        </p>
+
+        <div class="metas">
+          <span class="meta">Versão 1.0</span>
+          <span class="meta">Documento de Produto</span>
+          <span class="meta">Product Blueprint</span>
+          <span class="meta">Projeto Atlas</span>
+        </div>
+      </div>
+
+      <div class="hero-logo">
+        <img src="design/logos/atlas.svg" alt="Logo Conecta Educação Inclusiva">
+      </div>
+    </div>
+  </section>
+
+  <div class="container layout">
+    <aside class="sumario">
+      <h2>Sumário</h2>
+      <a href="#abertura">Apresentação</a>
+      <a href="#capitulo-1">1. Visão do Produto</a>
+      <a href="#capitulo-2">2. Problema Central</a>
+      <a href="#capitulo-3">3. Público-Alvo</a>
+      <a href="#capitulo-4">4. Proposta de Valor</a>
+      <a href="#capitulo-5">5. Ecossistema</a>
+      <a href="#capitulo-6">6. Arquitetura dos Módulos</a>
+      <a href="#capitulo-7">7. Personas</a>
+      <a href="#capitulo-8">8. Jornada do Usuário</a>
+      <a href="#capitulo-9">9. Fluxos Principais</a>
+      <a href="#capitulo-10">10. MVP</a>
+      <a href="#capitulo-11">11. Regras Essenciais</a>
+      <a href="#capitulo-12">12. Integrações</a>
+      <a href="#capitulo-13">13. Métricas</a>
+      <a href="#capitulo-14">14. Roadmap</a>
+      <a href="#decisao">Decisão oficial</a>
+    </aside>
+
+    <main>
+      <section class="abertura" id="abertura">
+        <div class="rotulo">ABERTURA</div>
+        <h2>Definição Oficial do Produto</h2>
+
+        <p class="lead">
+          Este livro responde à pergunta mais importante do Projeto Atlas:
+          <strong>qual produto estamos construindo e para quem ele gera valor?</strong>
+        </p>
+
+        <div class="citacao">
+          O ecossistema Conecta não existe para digitalizar formulários. Ele existe para preservar
+          conhecimento, reduzir burocracia e apoiar a continuidade pedagógica.
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-1">
+        <div class="rotulo">CAPÍTULO 1</div>
+        <h2>Visão do Produto</h2>
+
+        <p>
+          O Conecta Educação Inclusiva é um ecossistema digital para organizar, acompanhar,
+          preservar e evoluir os processos da educação inclusiva.
+        </p>
+
+        <p>
+          Seu primeiro produto é o <strong>PEI Conecta</strong>, destinado à gestão colaborativa
+          do Plano Educacional Individualizado. A arquitetura, porém, será preparada para abrigar
+          outros produtos especializados.
+        </p>
+
+        <div class="citacao">
+          O estudante é o centro. Os documentos são consequência.
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-2">
+        <div class="rotulo">CAPÍTULO 2</div>
+        <h2>Problema Central</h2>
+
+        <div class="grid-2">
+          <div class="card"><strong>Fragmentação</strong><p>Informações espalhadas em papel, Word, planilhas, e-mails e mensagens.</p></div>
+          <div class="card"><strong>Retrabalho</strong><p>Equipes recomeçam processos por falta de histórico consolidado.</p></div>
+          <div class="card"><strong>Baixa visibilidade</strong><p>Gestores não conseguem identificar pendências e prioridades.</p></div>
+          <div class="card"><strong>Descontinuidade</strong><p>O conhecimento se perde quando estudante, professor ou gestão mudam.</p></div>
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-3">
+        <div class="rotulo">CAPÍTULO 3</div>
+        <h2>Público-Alvo</h2>
+
+        <div class="grid-3">
+          <div class="persona">
+            <h3>Escolas Públicas</h3>
+            <p>Unidades estaduais e municipais que precisam organizar PEIs e fluxos de acompanhamento.</p>
+          </div>
+          <div class="persona">
+            <h3>Escolas Privadas</h3>
+            <p>Instituições que buscam padronização, segurança e melhor relacionamento com famílias.</p>
+          </div>
+          <div class="persona">
+            <h3>Secretarias de Educação</h3>
+            <p>Redes que precisam de visão consolidada, indicadores e governança.</p>
+          </div>
+          <div class="persona">
+            <h3>APAEs e Instituições</h3>
+            <p>Organizações especializadas que necessitam integrar registros e planos.</p>
+          </div>
+          <div class="persona">
+            <h3>Professores e AEE</h3>
+            <p>Profissionais responsáveis por contribuir, acompanhar e revisar planos.</p>
+          </div>
+          <div class="persona">
+            <h3>Famílias</h3>
+            <p>Responsáveis que precisam acompanhar informações autorizadas e participar do processo.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-4">
+        <div class="rotulo">CAPÍTULO 4</div>
+        <h2>Proposta de Valor</h2>
+
+        <div class="grid-2">
+          <div class="card"><strong>Para professores</strong><p>Menos burocracia, preenchimento orientado e histórico acessível.</p></div>
+          <div class="card"><strong>Para coordenação</strong><p>Fluxo de revisão, devolutivas, prazos e visão de pendências.</p></div>
+          <div class="card"><strong>Para direção</strong><p>Segurança documental, relatórios, auditoria e governança.</p></div>
+          <div class="card"><strong>Para redes de ensino</strong><p>Indicadores consolidados e continuidade entre escolas.</p></div>
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-5">
+        <div class="rotulo">CAPÍTULO 5</div>
+        <h2>Ecossistema de Produtos</h2>
+
+        <div class="modulos">
+          <article class="modulo">
+            <div class="modulo-topo"><div class="modulo-icone pei">PEI</div><strong>PEI Conecta</strong></div>
+            <p>Gestão do Plano Educacional Individualizado.</p>
+          </article>
+          <article class="modulo">
+            <div class="modulo-topo"><div class="modulo-icone aee">AEE</div><strong>AEE Conecta</strong></div>
+            <p>Planejamento e acompanhamento do Atendimento Educacional Especializado.</p>
+          </article>
+          <article class="modulo">
+            <div class="modulo-topo"><div class="modulo-icone familia">F</div><strong>Família Conecta</strong></div>
+            <p>Comunicação e participação autorizada da família.</p>
+          </article>
+          <article class="modulo">
+            <div class="modulo-topo"><div class="modulo-icone estrategias">E</div><strong>Estratégias Conecta</strong></div>
+            <p>Banco de práticas, estratégias e resultados pedagógicos.</p>
+          </article>
+          <article class="modulo">
+            <div class="modulo-topo"><div class="modulo-icone indicadores">I</div><strong>Indicadores Conecta</strong></div>
+            <p>Relatórios e inteligência institucional.</p>
+          </article>
+          <article class="modulo">
+            <div class="modulo-topo"><div class="modulo-icone formacao">F</div><strong>Formação Conecta</strong></div>
+            <p>Cursos, materiais e desenvolvimento profissional.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-6">
+        <div class="rotulo">CAPÍTULO 6</div>
+        <h2>Arquitetura dos Módulos</h2>
+
+        <p>
+          Todos os produtos compartilham um mesmo núcleo de identidade, autenticação, organizações,
+          usuários, estudantes, auditoria, documentos e permissões.
+        </p>
+
+        <div class="fluxo">
+          <div class="passo"><span>1</span>Organização</div>
+          <div class="passo"><span>2</span>Usuários</div>
+          <div class="passo"><span>3</span>Estudantes</div>
+          <div class="passo"><span>4</span>Produtos</div>
+          <div class="passo"><span>5</span>Relatórios</div>
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-7">
+        <div class="rotulo">CAPÍTULO 7</div>
+        <h2>Personas Principais</h2>
+
+        <div class="grid-2">
+          <div class="persona">
+            <h3>Coordenadora Pedagógica</h3>
+            <p>Precisa saber o que exige atenção hoje.</p>
+            <ul><li>Revisões pendentes</li><li>Prazos próximos</li><li>Professores que ainda não contribuíram</li></ul>
+          </div>
+          <div class="persona">
+            <h3>Professor</h3>
+            <p>Precisa contribuir rapidamente e com segurança.</p>
+            <ul><li>Formulários orientados</li><li>Salvamento automático</li><li>Devolutivas claras</li></ul>
+          </div>
+          <div class="persona">
+            <h3>Diretor</h3>
+            <p>Precisa de governança e segurança.</p>
+            <ul><li>Relatórios</li><li>Auditoria</li><li>Documentos verificáveis</li></ul>
+          </div>
+          <div class="persona">
+            <h3>Gestor de Rede</h3>
+            <p>Precisa de indicadores consolidados.</p>
+            <ul><li>Visão por escola</li><li>Comparações</li><li>Alertas institucionais</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-8">
+        <div class="rotulo">CAPÍTULO 8</div>
+        <h2>Jornada do Usuário</h2>
+
+        <div class="fluxo">
+          <div class="passo"><span>1</span>Contratação</div>
+          <div class="passo"><span>2</span>Configuração</div>
+          <div class="passo"><span>3</span>Cadastros</div>
+          <div class="passo"><span>4</span>Uso diário</div>
+          <div class="passo"><span>5</span>Resultados</div>
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-9">
+        <div class="rotulo">CAPÍTULO 9</div>
+        <h2>Fluxos Principais</h2>
+
+        <table class="tabela">
+          <thead><tr><th>Fluxo</th><th>Objetivo</th><th>Resultado esperado</th></tr></thead>
+          <tbody>
+            <tr><td>Primeiro acesso</td><td>Ativar escola e usuários</td><td>Ambiente pronto</td></tr>
+            <tr><td>Cadastro do estudante</td><td>Criar registro central</td><td>Histórico iniciado</td></tr>
+            <tr><td>Criação do PEI</td><td>Distribuir seções</td><td>Plano em construção</td></tr>
+            <tr><td>Revisão</td><td>Validar contribuições</td><td>Conteúdo aprovado</td></tr>
+            <tr><td>Assinatura</td><td>Formalizar responsabilidade</td><td>Documento emitido</td></tr>
+            <tr><td>Transferência</td><td>Preservar continuidade</td><td>Novo ciclo com histórico</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="capitulo mvp" id="capitulo-10">
+        <div class="rotulo">CAPÍTULO 10</div>
+        <h2>MVP — Produto Mínimo Viável</h2>
+
+        <div class="grid-2">
+          <div class="card"><strong>Organizações e usuários</strong><p>Cadastro de escola, direção, coordenação e professores.</p></div>
+          <div class="card"><strong>Estudantes</strong><p>Cadastro, histórico e identificação única interna.</p></div>
+          <div class="card"><strong>PEI</strong><p>Criação, edição, distribuição e acompanhamento.</p></div>
+          <div class="card"><strong>Revisão</strong><p>Devolutivas, aprovação e controle de pendências.</p></div>
+          <div class="card"><strong>Documentos</strong><p>PDF, assinatura e verificação.</p></div>
+          <div class="card"><strong>Relatórios</strong><p>Indicadores básicos por escola, turma e professor.</p></div>
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-11">
+        <div class="rotulo">CAPÍTULO 11</div>
+        <h2>Regras Essenciais</h2>
+
+        <ul>
+          <li>cada usuário terá permissões conforme seu perfil;</li>
+          <li>uma escola não poderá acessar dados de outra sem autorização;</li>
+          <li>toda alteração relevante deverá gerar histórico;</li>
+          <li>assinaturas serão individuais e vinculadas ao usuário;</li>
+          <li>documentos emitidos terão versão e código de verificação;</li>
+          <li>transferências dependerão de processo autorizado;</li>
+          <li>nenhuma IA tomará decisão pedagógica automaticamente.</li>
+        </ul>
+      </section>
+
+      <section class="capitulo" id="capitulo-12">
+        <div class="rotulo">CAPÍTULO 12</div>
+        <h2>Integrações</h2>
+
+        <div class="grid-2">
+          <div class="card"><strong>E-mail</strong><p>Convites, lembretes e devolutivas.</p></div>
+          <div class="card"><strong>Google Drive</strong><p>Backup externo opcional.</p></div>
+          <div class="card"><strong>Pagamentos</strong><p>PIX, boleto e cartão.</p></div>
+          <div class="card"><strong>Assinatura</strong><p>Registro eletrônico e futura integração com provedores.</p></div>
+          <div class="card"><strong>PDF e QR Code</strong><p>Documentos verificáveis.</p></div>
+          <div class="card"><strong>API</strong><p>Integrações futuras com redes e sistemas oficiais.</p></div>
+        </div>
+      </section>
+
+      <section class="capitulo" id="capitulo-13">
+        <div class="rotulo">CAPÍTULO 13</div>
+        <h2>Métricas do Produto</h2>
+
+        <table class="tabela">
+          <thead><tr><th>Métrica</th><th>O que mede</th></tr></thead>
+          <tbody>
+            <tr><td>PEIs concluídos no prazo</td><td>Eficiência do processo</td></tr>
+            <tr><td>Tempo médio de elaboração</td><td>Redução de burocracia</td></tr>
+            <tr><td>Participação dos professores</td><td>Colaboração</td></tr>
+            <tr><td>Revisões pendentes</td><td>Gargalos operacionais</td></tr>
+            <tr><td>Históricos preservados</td><td>Continuidade pedagógica</td></tr>
+            <tr><td>Ativação das escolas</td><td>Adoção do produto</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="capitulo" id="capitulo-14">
+        <div class="rotulo">CAPÍTULO 14</div>
+        <h2>Roadmap do Produto</h2>
+
+        <div class="grid-3">
+          <div class="card"><strong>Fase 1 — MVP</strong><p>PEI, usuários, estudantes, revisão, documentos e relatórios.</p></div>
+          <div class="card"><strong>Fase 2 — Validação</strong><p>Escolas piloto, melhorias de UX, suporte e onboarding.</p></div>
+          <div class="card"><strong>Fase 3 — Expansão</strong><p>AEE, família, estratégias, indicadores e integrações.</p></div>
+        </div>
+      </section>
+
+      <section class="decisao" id="decisao">
+        <div class="rotulo">DECISÃO OFICIAL</div>
+        <h2>Livro II aprovado como definição do produto</h2>
+
+        <p>
+          O escopo descrito neste documento passa a orientar o desenvolvimento do MVP,
+          o desenho das jornadas, as regras de negócio e a priorização do Projeto Atlas.
+        </p>
+
+        <div class="status">
+          <strong>Status:</strong> versão 1.0 pronta para revisão.<br>
+          <strong>Próximo livro:</strong> Livro III — Filosofia e Princípios.
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <button class="topo-voltar" id="topoVoltar" aria-label="Voltar ao topo">↑</button>
+
+  <footer>
+    Conecta Educação Inclusiva · Projeto Atlas · Livro II — O Produto · Versão 1.0
+  </footer>
+
+  <script>
+    const corpo = document.body;
+    const botaoTema = document.getElementById("tema");
+    const botaoTopo = document.getElementById("topoVoltar");
+    const linksSumario = [...document.querySelectorAll(".sumario a")];
+    const secoes = linksSumario
+      .map(link => document.querySelector(link.getAttribute("href")))
+      .filter(Boolean);
+
+    if(localStorage.getItem("atlas-tema") === "escuro"){
+      corpo.classList.add("escuro");
+    }
+
+    botaoTema.addEventListener("click", () => {
+      corpo.classList.toggle("escuro");
+      localStorage.setItem(
+        "atlas-tema",
+        corpo.classList.contains("escuro") ? "escuro" : "claro"
+      );
+    });
+
+    const observador = new IntersectionObserver((entradas) => {
+      entradas.forEach((entrada) => {
+        if(entrada.isIntersecting){
+          linksSumario.forEach(link => link.classList.remove("ativo"));
+          const linkAtivo = linksSumario.find(
+            link => link.getAttribute("href") === "#" + entrada.target.id
+          );
+          if(linkAtivo) linkAtivo.classList.add("ativo");
+        }
+      });
+    }, {
+      rootMargin:"-22% 0px -68% 0px",
+      threshold:0
+    });
+
+    secoes.forEach(secao => observador.observe(secao));
+
+    window.addEventListener("scroll", () => {
+      botaoTopo.classList.toggle("visivel", window.scrollY > 650);
+    });
+
+    botaoTopo.addEventListener("click", () => {
+      window.scrollTo({ top:0, behavior:"smooth" });
+    });
+  </script>
+</body>
+</html>
