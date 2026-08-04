@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="PEI Conecta — Plataforma online para criação, acompanhamento, revisão, assinatura e gestão do Plano Educacional Individualizado." />
+  <title>PEI Conecta | Gestão do Plano Educacional Individualizado</title>
+
+  <style>
+    :root{
+      --navy:#24324a;
+      --blue:#58b8ef;
+      --pink:#f65c9f;
+      --yellow:#ffd86a;
+      --mint:#8edfd8;
+      --purple:#c4adf5;
+      --green:#56c596;
+      --cream:#fff7e8;
+      --white:#ffffff;
+      --text:#263044;
+      --muted:#657086;
+      --border:3px solid var(--navy);
+      --shadow:7px 7px 0 var(--navy);
+      --shadow-small:4px 4px 0 var(--navy);
+      --radius:22px;
+      --max:1180px;
+    }
+
+    *{
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--cream);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    a{
+      color:inherit;
+    }
+
+    .container{
+      width:min(var(--max), calc(100% - 36px));
+      margin:0 auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:rgba(255,247,232,.96);
+      backdrop-filter:blur(12px);
+      border-bottom:3px solid var(--navy);
+    }
+
+    .nav{
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      font-weight:900;
+      letter-spacing:-1px;
+      font-size:1.4rem;
+    }
+
+    .brand-mark{
+      width:48px;
+      height:48px;
+      display:grid;
+      place-items:center;
+      border:var(--border);
+      border-radius:15px;
+      background:var(--yellow);
+      box-shadow:var(--shadow-small);
+      font-size:1.45rem;
+    }
+
+    .brand span strong{
+      color:var(--pink);
+    }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      font-weight:700;
+    }
+
+    .nav-links a{
+      text-decoration:none;
+      padding:9px 4px;
+    }
+
+    .nav-links a:hover{
+      color:var(--pink);
+    }
+
+    .btn{
+      border:var(--border);
+      box-shadow:var(--shadow-small);
+      border-radius:16px;
+      padding:13px 20px;
+      font-weight:900;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:9px;
+      transition:.15s ease;
+      cursor:pointer;
+    }
+
+    .btn:hover{
+      transform:translate(2px,2px);
+      box-shadow:2px 2px 0 var(--navy);
+    }
+
+    .btn-primary{
+      background:var(--pink);
+      color:var(--white);
+    }
+
+    .btn-secondary{
+      background:var(--yellow);
+      color:var(--navy);
+    }
+
+    .btn-light{
+      background:var(--white);
+      color:var(--navy);
+    }
+
+    .hero{
+      padding:78px 0 52px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .hero::before,
+    .hero::after{
+      content:"";
+      position:absolute;
+      border:var(--border);
+      border-radius:30px;
+      transform:rotate(10deg);
+      z-index:-1;
+    }
+
+    .hero::before{
+      width:150px;
+      height:150px;
+      background:var(--mint);
+      left:-55px;
+      top:80px;
+    }
+
+    .hero::after{
+      width:125px;
+      height:125px;
+      background:var(--purple);
+      right:-30px;
+      bottom:30px;
+      transform:rotate(-12deg);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:56px;
+      align-items:center;
+    }
+
+    .eyebrow{
+      display:inline-block;
+      background:var(--mint);
+      border:var(--border);
+      border-radius:999px;
+      padding:8px 15px;
+      font-weight:900;
+      box-shadow:var(--shadow-small);
+      margin-bottom:20px;
+    }
+
+    h1{
+      font-size:clamp(2.8rem, 7vw, 5.9rem);
+      line-height:.98;
+      margin:0;
+      letter-spacing:-4px;
+      color:var(--navy);
+    }
+
+    h1 .accent{
+      color:var(--pink);
+    }
+
+    .hero p{
+      font-size:1.18rem;
+      color:var(--muted);
+      max-width:690px;
+      margin:24px 0 0;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-top:30px;
+    }
+
+    .mini-info{
+      margin-top:20px;
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      font-weight:700;
+      color:var(--navy);
+    }
+
+    .mini-info span{
+      display:flex;
+      align-items:center;
+      gap:7px;
+    }
+
+    .dashboard{
+      background:var(--white);
+      border:var(--border);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:20px;
+      transform:rotate(1deg);
+    }
+
+    .dashboard-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:15px;
+      margin-bottom:18px;
+    }
+
+    .dashboard-title{
+      font-weight:900;
+      font-size:1.1rem;
+    }
+
+    .status-dot{
+      width:13px;
+      height:13px;
+      border:2px solid var(--navy);
+      background:var(--green);
+      border-radius:50%;
+    }
+
+    .dashboard-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:13px;
+    }
+
+    .metric{
+      border:var(--border);
+      border-radius:18px;
+      padding:18px;
+      min-height:125px;
+      box-shadow:var(--shadow-small);
+    }
+
+    .metric strong{
+      display:block;
+      font-size:2.2rem;
+      color:var(--navy);
+    }
+
+    .metric span{
+      font-weight:800;
+    }
+
+    .metric.yellow{background:var(--yellow);}
+    .metric.blue{background:var(--blue);}
+    .metric.pink{background:var(--pink); color:white;}
+    .metric.mint{background:var(--mint);}
+
+    .progress{
+      margin-top:16px;
+      border:var(--border);
+      border-radius:18px;
+      padding:16px;
+      background:#fff;
+    }
+
+    .progress-head{
+      display:flex;
+      justify-content:space-between;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+
+    .progress-track{
+      height:20px;
+      border:var(--border);
+      border-radius:999px;
+      overflow:hidden;
+      background:#fff;
+    }
+
+    .progress-fill{
+      width:78%;
+      height:100%;
+      background:var(--green);
+    }
+
+    section{
+      padding:74px 0;
+    }
+
+    .section-head{
+      max-width:760px;
+      margin-bottom:34px;
+    }
+
+    .section-head .tag{
+      display:inline-block;
+      padding:7px 13px;
+      border:var(--border);
+      border-radius:999px;
+      font-weight:900;
+      background:var(--yellow);
+      box-shadow:var(--shadow-small);
+      margin-bottom:17px;
+    }
+
+    h2{
+      font-size:clamp(2.1rem,4vw,3.8rem);
+      line-height:1.04;
+      letter-spacing:-2px;
+      margin:0;
+      color:var(--navy);
+    }
+
+    .section-head p{
+      font-size:1.1rem;
+      color:var(--muted);
+      margin:18px 0 0;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+
+    .card{
+      border:var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:24px;
+      background:var(--white);
+    }
+
+    .card-icon{
+      width:58px;
+      height:58px;
+      display:grid;
+      place-items:center;
+      border:var(--border);
+      border-radius:17px;
+      font-size:1.6rem;
+      margin-bottom:18px;
+      box-shadow:var(--shadow-small);
+    }
+
+    .card h3{
+      margin:0 0 9px;
+      color:var(--navy);
+      font-size:1.25rem;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+    }
+
+    .features .card:nth-child(1) .card-icon{background:var(--yellow);}
+    .features .card:nth-child(2) .card-icon{background:var(--mint);}
+    .features .card:nth-child(3) .card-icon{background:var(--pink); color:white;}
+    .features .card:nth-child(4) .card-icon{background:var(--purple);}
+    .features .card:nth-child(5) .card-icon{background:var(--blue);}
+    .features .card:nth-child(6) .card-icon{background:var(--green);}
+
+    .flow{
+      background:var(--navy);
+      color:white;
+      border-top:3px solid var(--navy);
+      border-bottom:3px solid var(--navy);
+    }
+
+    .flow h2,
+    .flow .section-head p{
+      color:white;
+    }
+
+    .flow-list{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:15px;
+    }
+
+    .flow-item{
+      position:relative;
+      background:var(--white);
+      color:var(--navy);
+      border:3px solid #111827;
+      border-radius:18px;
+      padding:20px;
+      min-height:150px;
+      box-shadow:6px 6px 0 rgba(255,255,255,.26);
+      font-weight:900;
+    }
+
+    .flow-item span{
+      display:grid;
+      place-items:center;
+      width:38px;
+      height:38px;
+      border:2px solid var(--navy);
+      border-radius:50%;
+      background:var(--yellow);
+      margin-bottom:16px;
+    }
+
+    .personalization{
+      display:grid;
+      grid-template-columns:.95fr 1.05fr;
+      gap:36px;
+      align-items:center;
+    }
+
+    .personal-box{
+      background:var(--white);
+      border:var(--border);
+      border-radius:26px;
+      box-shadow:var(--shadow);
+      padding:24px;
+    }
+
+    .theme-palette{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:10px;
+      margin:18px 0;
+    }
+
+    .theme-palette div{
+      aspect-ratio:1;
+      border:var(--border);
+      border-radius:16px;
+    }
+
+    .check-list{
+      display:grid;
+      gap:13px;
+      margin:24px 0 0;
+      padding:0;
+      list-style:none;
+    }
+
+    .check-list li{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      font-weight:700;
+    }
+
+    .check{
+      min-width:26px;
+      height:26px;
+      display:grid;
+      place-items:center;
+      border:2px solid var(--navy);
+      background:var(--green);
+      border-radius:8px;
+      font-size:.85rem;
+    }
+
+    .trial{
+      background:var(--yellow);
+      border-top:3px solid var(--navy);
+      border-bottom:3px solid var(--navy);
+    }
+
+    .trial-box{
+      background:var(--white);
+      border:var(--border);
+      box-shadow:var(--shadow);
+      border-radius:28px;
+      padding:34px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      gap:30px;
+    }
+
+    .trial-box h2{
+      margin-bottom:12px;
+    }
+
+    .trial-box p{
+      margin:0;
+      color:var(--muted);
+      max-width:720px;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+
+    .about-item{
+      border:var(--border);
+      border-radius:20px;
+      padding:23px;
+      box-shadow:var(--shadow-small);
+      background:var(--white);
+      text-align:center;
+      font-weight:900;
+    }
+
+    .about-item strong{
+      display:block;
+      font-size:2rem;
+      color:var(--pink);
+      margin-bottom:8px;
+    }
+
+    footer{
+      background:var(--navy);
+      color:white;
+      padding:48px 0 24px;
+    }
+
+    .footer-grid{
+      display:grid;
+      grid-template-columns:1.4fr 1fr 1fr;
+      gap:35px;
+      align-items:start;
+    }
+
+    .footer-brand{
+      font-size:1.5rem;
+      font-weight:900;
+      margin-bottom:10px;
+    }
+
+    footer h4{
+      margin:0 0 12px;
+    }
+
+    footer a{
+      display:block;
+      text-decoration:none;
+      color:#dce6ff;
+      margin:7px 0;
+    }
+
+    .copyright{
+      border-top:1px solid rgba(255,255,255,.25);
+      margin-top:35px;
+      padding-top:20px;
+      text-align:center;
+      color:#c9d3e8;
+      font-size:.92rem;
+    }
+
+    .menu-button{
+      display:none;
+      border:var(--border);
+      background:var(--yellow);
+      border-radius:12px;
+      padding:8px 12px;
+      font-weight:900;
+    }
+
+    @media(max-width:980px){
+      .hero-grid,
+      .personalization,
+      .trial-box{
+        grid-template-columns:1fr;
+      }
+
+      .cards{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .flow-list{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .about-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .dashboard{
+        transform:none;
+      }
+    }
+
+    @media(max-width:760px){
+      .menu-button{
+        display:block;
+      }
+
+      .nav-links{
+        display:none;
+        position:absolute;
+        left:18px;
+        right:18px;
+        top:72px;
+        flex-direction:column;
+        align-items:stretch;
+        background:var(--white);
+        border:var(--border);
+        border-radius:18px;
+        box-shadow:var(--shadow);
+        padding:18px;
+      }
+
+      .nav-links.open{
+        display:flex;
+      }
+
+      h1{
+        letter-spacing:-2px;
+      }
+
+      .hero{
+        padding-top:50px;
+      }
+
+      .cards,
+      .flow-list,
+      .about-grid,
+      .dashboard-grid{
+        grid-template-columns:1fr;
+      }
+
+      .footer-grid{
+        grid-template-columns:1fr;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+      }
+
+      .btn{
+        width:100%;
+      }
+
+      .trial-box{
+        padding:24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a href="#inicio" class="brand" aria-label="PEI Conecta">
+        <div class="brand-mark">✦</div>
+        <span><strong>PEI</strong> Conecta</span>
+      </a>
+
+      <button class="menu-button" id="menuButton" aria-label="Abrir menu">Menu</button>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#recursos">Recursos</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#personalizacao">Personalização</a>
+        <a href="#seguranca">Segurança</a>
+        <a class="btn btn-light" href="https://app.peiconecta.com.br">Entrar</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Educação inclusiva mais organizada</span>
+
+          <h1>
+            O PEI de cada estudante,
+            <span class="accent">conectado</span> à sua trajetória.
+          </h1>
+
+          <p>
+            Crie, acompanhe, revise, assine e preserve Planos Educacionais
+            Individualizados em uma plataforma simples, segura, auditável e
+            personalizável para cada escola.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#teste">Experimentar por 30 dias</a>
+            <a class="btn btn-secondary" href="#recursos">Conhecer recursos</a>
+          </div>
+
+          <div class="mini-info">
+            <span>✓ Sem cartão no teste</span>
+            <span>✓ Personalizado para sua escola</span>
+            <span>✓ Acesso online</span>
+          </div>
+        </div>
+
+        <div class="dashboard" aria-label="Exemplo de painel">
+          <div class="dashboard-top">
+            <div>
+              <div class="dashboard-title">Painel da escola</div>
+              <small>Acompanhamento do período atual</small>
+            </div>
+            <div class="status-dot" title="Sistema ativo"></div>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="metric yellow">
+              <strong>52</strong>
+              <span>Estudantes</span>
+            </div>
+            <div class="metric blue">
+              <strong>41</strong>
+              <span>PEIs concluídos</span>
+            </div>
+            <div class="metric pink">
+              <strong>8</strong>
+              <span>Pendências</span>
+            </div>
+            <div class="metric mint">
+              <strong>3</strong>
+              <span>Em revisão</span>
+            </div>
+          </div>
+
+          <div class="progress">
+            <div class="progress-head">
+              <span>Progresso do bimestre</span>
+              <span>78%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recursos">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">Tudo em um só lugar</span>
+          <h2>Uma plataforma completa para organizar o PEI</h2>
+          <p>
+            Professores, coordenação e direção trabalham de forma integrada,
+            com responsabilidades claras e histórico preservado.
+          </p>
+        </div>
+
+        <div class="cards features">
+          <article class="card">
+            <div class="card-icon">👩‍🏫</div>
+            <h3>Preenchimento por professor</h3>
+            <p>Cada profissional acessa somente as seções sob sua responsabilidade.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">✓</div>
+            <h3>Revisão e devolutivas</h3>
+            <p>A coordenação aprova ou devolve cada seção com orientações registradas.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">✍</div>
+            <h3>Assinatura individual</h3>
+            <p>Cada professor confirma e assina eletronicamente sua própria contribuição.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">📊</div>
+            <h3>Relatórios e indicadores</h3>
+            <p>Acompanhe pendências, prazos, progresso e conclusão por turma e professor.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">🔎</div>
+            <h3>Documentos verificáveis</h3>
+            <p>PDFs com código, QR Code, versão e trilha completa de auditoria.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon">☁</div>
+            <h3>Backup e histórico</h3>
+            <p>Proteção de dados, versões preservadas e cópia externa de segurança.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow" id="como-funciona">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">Fluxo simples</span>
+          <h2>Do cadastro ao documento final</h2>
+          <p>O sistema conduz cada etapa e mostra claramente o que precisa ser feito.</p>
+        </div>
+
+        <div class="flow-list">
+          <div class="flow-item"><span>1</span>Coordenação cria o PEI</div>
+          <div class="flow-item"><span>2</span>Sistema distribui as seções</div>
+          <div class="flow-item"><span>3</span>Professores preenchem</div>
+          <div class="flow-item"><span>4</span>Coordenação revisa</div>
+          <div class="flow-item"><span>5</span>Documento é assinado e emitido</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="personalizacao">
+      <div class="container personalization">
+        <div>
+          <div class="section-head">
+            <span class="tag">A identidade da sua escola</span>
+            <h2>Personalizável sem comprometer o sistema</h2>
+            <p>
+              A escola pode configurar aparência, períodos, mensagens e documentos,
+              sem editar códigos ou alterar regras de segurança.
+            </p>
+          </div>
+
+          <ul class="check-list">
+            <li><span class="check">✓</span> Logotipo, brasão e nome da escola</li>
+            <li><span class="check">✓</span> Cores principais e destaques</li>
+            <li><span class="check">✓</span> Bimestre, trimestre ou semestre</li>
+            <li><span class="check">✓</span> Modelos de e-mail e lembretes</li>
+            <li><span class="check">✓</span> Cabeçalho e rodapé dos documentos</li>
+          </ul>
+        </div>
+
+        <div class="personal-box">
+          <strong>Exemplo de tema</strong>
+
+          <div class="theme-palette">
+            <div style="background:#ffd86a"></div>
+            <div style="background:#8edfd8"></div>
+            <div style="background:#f65c9f"></div>
+            <div style="background:#58b8ef"></div>
+            <div style="background:#c4adf5"></div>
+          </div>
+
+          <div class="card" style="box-shadow:4px 4px 0 var(--navy);">
+            <div class="card-icon" style="background:var(--yellow)">🏫</div>
+            <h3>Escola Estadual Modelo</h3>
+            <p>Seu ambiente, sua identidade, o mesmo núcleo seguro.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="seguranca">
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">Segurança e responsabilidade</span>
+          <h2>Dados protegidos e ações auditáveis</h2>
+          <p>
+            Cada escola possui ambiente isolado, permissões por perfil,
+            histórico de alterações e documentos privados.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-icon" style="background:var(--mint)">🔐</div>
+            <h3>Isolamento por escola</h3>
+            <p>Uma escola não acessa estudantes, PEIs ou documentos de outra.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" style="background:var(--yellow)">🧾</div>
+            <h3>Auditoria</h3>
+            <p>O sistema registra quem criou, alterou, revisou, aprovou e assinou.</p>
+          </article>
+
+          <article class="card">
+            <div class="card-icon" style="background:var(--purple)">🛡</div>
+            <h3>Proteção de dados</h3>
+            <p>Arquivos sensíveis ficam em área privada, com controle de acesso.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="trial" id="teste">
+      <div class="container">
+        <div class="trial-box">
+          <div>
+            <h2>Experimente gratuitamente por 30 dias</h2>
+            <p>
+              Conheça os principais recursos do PEI Conecta, cadastre sua escola
+              e acompanhe o fluxo completo antes de contratar.
+            </p>
+          </div>
+
+          <a class="btn btn-primary" href="https://app.peiconecta.com.br/cadastro">
+            Criar conta gratuita
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <span class="tag">Pensado para a escola</span>
+          <h2>Mais organização, menos retrabalho</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-item"><strong>1</strong>ambiente centralizado</div>
+          <div class="about-item"><strong>100%</strong>online</div>
+          <div class="about-item"><strong>30</strong>dias de teste</div>
+          <div class="about-item"><strong>24h</strong>acesso aos documentos</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="footer-brand">PEI Conecta</div>
+        <p>
+          Plataforma para criação, acompanhamento, revisão, assinatura
+          e preservação do Plano Educacional Individualizado.
+        </p>
+      </div>
+
+      <div>
+        <h4>Navegação</h4>
+        <a href="#recursos">Recursos</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#personalizacao">Personalização</a>
+        <a href="#seguranca">Segurança</a>
+      </div>
+
+      <div>
+        <h4>Acesso</h4>
+        <a href="https://app.peiconecta.com.br">Entrar no sistema</a>
+        <a href="https://app.peiconecta.com.br/cadastro">Teste gratuito</a>
+        <a href="mailto:contato@peiconecta.com.br">contato@peiconecta.com.br</a>
+      </div>
+    </div>
+
+    <div class="container copyright">
+      © <span id="year"></span> PEI Conecta. Todos os direitos reservados.
+    </div>
+  </footer>
+
+  <script>
+    const menuButton = document.getElementById('menuButton');
+    const navLinks = document.getElementById('navLinks');
+
+    menuButton.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
